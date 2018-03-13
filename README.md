@@ -11,11 +11,11 @@ Say we developed a 'character' in a very large and rigid class later down the li
 ## The Solution
 
 <div style="text-align:center">
-  ![UML](diagrams/general.png)
+  <img src="diagrams/general.png">
 </div>
 
 ## Code along
 
 <div style="text-align:center">
-  ![UML](diagrams/example.png)
+  <img src="diagrams/example.png">
 </div>
