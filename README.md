@@ -1,9 +1,14 @@
 ### Contents
 
+* [Video](#video)
 * [Aims of the Design Pattern](#aim-of-the-design-pattern)
 * [The Problem](#the-problem)
 * [The Solution](#the-solution)
 * [Code Along](#code-along)
+
+## Video
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Aim of the Design Pattern
 
