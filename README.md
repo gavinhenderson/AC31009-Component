@@ -9,7 +9,7 @@
 
 ## Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" align="center" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" align="middle" allowfullscreen></iframe>
 
 ## Aim of the Design Pattern
 
