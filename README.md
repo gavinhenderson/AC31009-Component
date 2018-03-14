@@ -5,11 +5,11 @@
 * [The Problem](#the-problem)
 * [The Solution](#the-solution)
 * [Code Along](#code-along)
-  * [Rigid Class](#rigid-class)
+  * [Rigid Class](#the-rigid-class)
 
 ## Video
 
-<div style="text-align:center"><iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" align="center" allowfullscreen></iframe>
 
 ## Aim of the Design Pattern
 
