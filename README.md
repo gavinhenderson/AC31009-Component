@@ -5,6 +5,7 @@
 * [The Problem](#the-problem)
 * [The Solution](#the-solution)
 * [Code Along](#code-along)
+  * [Rigid Class](#rigid-class)
 
 ## Video
 
@@ -28,18 +29,32 @@ The solution to this problem is to separate out functionality into multiple comp
 
 ## Code along
 
-In the following demo, we provide an implementation of the Component design pattern by starting off with a sub-optimal solution.
+In the following demo, we provide an implementation of the Component design pattern by starting off with a sub-optimal solution. The following solution implements the protagonist of our game who we will call Fred The Frog. In our game we want to be able to move Fred the Frog around our screen and not be able to bump into other objects on the map. We also want him to be able to be animated so it is clear what he is doing. This is a somewhat realistic scenario of what we expect most objects in our game to be able to do in some capacity.
+
+#### The Rigid Class
+
+We start with a rigid class that is inflexible as seen below.
 
 ```cpp
 class FredTheFrog {
 public:
-  FredTheFrog() :
-    velocityX(0), velocityY(0), x(0), y(0), acceleration(1),
-    still(new Sprite("frog.png")), leftWalking(new Sprite("frogleft.png")), rightWalking(new Sprite("frogright.png")) {}
+  // Constructor
+  // Doesn't need any parameters as we know how we want Fred to Be and Act
+  FredTheFrog() {
+      velocityX     = 0;
+      velocityY     = 0;
+      x             = 0;
+      y             = 0;
+      acceleration  = 1;
+      still         = new Sprite("frog.png");
+      leftWalking   = new Sprite("frogleft.png");
+      rightWalking  = new Sprite("frogright.png");
+    }
   ~FredTheFrog() {}
 
+  // Update function that we will add to the Game Loop to get called every loop iteration.
   void update(Map* map) {
-    //Deal with keyinputs
+    // Make changes based on keyboard inputs
     if (INPUT::getKeyDown() == "w") {
       velocityY -= acceleration;
     } else if (INPUT::getKeyDown() == "a") {
@@ -48,31 +63,30 @@ public:
       velocityY += acceleration;
     } else if (INPUT::getKeyDown() == "d") {
       velocityX += acceleration;
-    } else if (INPUT::getKeyDown() == "space") {
     }
 
-    //Deal with physics
+    // Alter the location of Fred and resolve collisions.
     x += velocityX;
     y += velocityY;
     map->sortCollisions(this*);
 
-    //Deal with graphics
+    // Display the correct sprite of Fred on the screen
     if (velocityX==0) { still.draw(x,y); }
     else if (velocityX>0) { rightWalking.draw(x,y); }
     else if (velocityX<0) { leftWalking.draw(x,y); }
   }
 
 private:
-  //We say (0,0) is the top left
+  // We say (0,0) is the top left
   int velocityX, velocityY, x, y, acceleration;
 
-  //Sprite class exists for this sake
+  // We say that the sprite class is already implemented for this tutorial
   Sprite* still;
   Sprite* leftWalking;
   Sprite* rightWalking;
 }
-
 ```
+This code will run and work as expected. However, the problem occurs.
 
 <div style="text-align:center">
   <img src="diagrams/example.png">
