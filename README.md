@@ -6,6 +6,7 @@
 * [The Solution](#the-solution)
 * [Code Along](#code-along)
   * [Rigid Class](#the-rigid-class)
+  * [Creating Components](#creating-components)
 
 ## Video
 
@@ -31,7 +32,7 @@ The solution to this problem is to separate out functionality into multiple comp
 
 In the following demo, we provide an implementation of the Component design pattern by starting off with a sub-optimal solution. The following solution implements the protagonist of our game who we will call Fred The Frog. In our game we want to be able to move Fred the Frog around our screen and not be able to bump into other objects on the map. We also want him to be able to be animated so it is clear what he is doing. This is a somewhat realistic scenario of what we expect most objects in our game to be able to do in some capacity.
 
-#### The Rigid Class
+### The Rigid Class
 
 We start with a rigid class that is inflexible as seen below.
 
@@ -86,7 +87,56 @@ private:
   Sprite* rightWalking;
 }
 ```
-This code will run and work as expected. However, the problem occurs.
+This code will run and work as expected. However, the problem occurs when we try and extend our class or alter it. We will also find ourselves writing lots of similar code if we decide to write another character.
+
+### Creating Components
+
+To overcome this problem we are going to split this code up into components. We are going to reuse all of the code just separate it into different classes that can be reused in other places.
+
+We will start off by writing the Physics Component.
+```cpp
+class PhysicsComponent {
+  public:
+    // Constructor and Destructor
+    PhysicsComponent();
+    ~PhysicsComponent();
+
+    // Update function
+    void update(FredTheFrom& fred, Map& map){
+      fred.x += fred.velocityX;
+      fred.y += fred.velocityY;
+      map.sortCollisions(fred);
+    }
+}
+```
+
+We can see that we write the physics component so that is just has a simple update function. As the physics gets more complicated you can add functions within the component without worrying about getting it mixed in with code we don't want it too.
+
+Next we will move onto the Graphics Component
+```cpp
+class GraphicsComponent {
+  public:
+    // Constructor that stores the game sprites
+    GraphicsComponent(Sprite& frog, Sprite& frogLeft, Sprite& frogRight) {
+        still         = frog;
+        walkingLeft   = frogLeft;
+        walkingRight  = frogRight;
+      }
+    ~GraphicsComponent();
+
+    //Update function
+    void update(FredTheFrog& fred){
+      if(fred.velocityX==0){ still.draw(x,y); }
+      else if(fred.velocityX>0){ rightWalking.draw(x,y); }
+      else if(fred.velocityX<0){ leftWalking.draw(x,y); }
+    }
+
+  private:
+    Sprite& still;
+    Sprite& walkingLeft;
+    Sprite& walkingRight;
+}
+```
 
 <div style="text-align:center">
   <img src="diagrams/example.png">
