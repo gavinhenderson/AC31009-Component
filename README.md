@@ -1,7 +1,7 @@
 ### Contents
 
-* [Video](#video)
 * [Aims of the Design Pattern](#aim-of-the-design-pattern)
+* [Video](#video)
 * [The Problem](#the-problem)
 * [The Solution](#the-solution)
 * [Code Along](#code-along)
@@ -9,13 +9,14 @@
   * [Creating Components](#creating-components)
   * [Going Abstract](#going-abstract)
 * [Conclusion](#conclusion)
-## Video
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FaeXZSxA_Bw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Aim of the Design Pattern
 
 The aim of the 'Component' design pattern is to allows for the decoupling of domains from their entities allowing them to span multiple domains. Decoupling allows for code reusability and allows developers to work on different sections of the code at the same time.
+
+## Video
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" align="middle" style="margin: auto; text-align:center;" allowfullscreen></iframe>
 
 ## The Problem
 
@@ -320,5 +321,9 @@ This solution looks large and cumbersome but if you are writing lots of characte
 
 The component pattern can add complexity instead of just making a class.  Be careful because using components also means all the parts have to be instantiated and integrated together. That means a lot of memory management complexity that you have introduced.  But in the long term with a large code base it will really help with decoupling for easier maintainability and extension later on. This can be really helpful in games programming as generally you are going to have scrap code regularly as you realise you don’t need that functionality in the game. Instead of having to dive into big monolithic classes to figure out which parts you don’t need it’s simpler just retiring some components inside an entity class. Having components allows you to have pile of functionality in predefined blocks you can simply add to new game objects and allows for more simply extension after you realise a behaviour needs extending.
 
+Before finishing up do the quiz to see how much you have learned! -> https://goo.gl/forms/GkLGzkfepXXZRDJI3
+
 We hope that you can use the Component Pattern inside your own games to great effect!
 Thank you for reading.
+
+<hr>
