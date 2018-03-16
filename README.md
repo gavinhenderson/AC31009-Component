@@ -7,6 +7,7 @@
 * [Code Along](#code-along)
   * [Rigid Class](#the-rigid-class)
   * [Creating Components](#creating-components)
+  * [Going Abstract](#going-abstract)
 
 ## Video
 
@@ -25,7 +26,7 @@ Say we developed a 'character' who moves on player input, is animated on screen 
 The solution to this problem is to separate out functionality into multiple components. A character is transformed into a GameObject, with multiple components that inherit from abstract interfaces. These abstract interfaces may cover functionality such as graphics and rendering, physics, and input.
 
 <div style="text-align:center">
-  <img src="diagrams/general.png">
+  <img src="diagrams/Main.png">
 </div>
 
 ## Code along
@@ -193,8 +194,126 @@ private:
 ```
 We can clearly see now that the code we have now for FredTheFrog is much simpler and if we want to find a certain part of Fred we can now do it very quickly. However, this solution only goes part of the way to solving the problem. If we want to use the code again for another game character we cant as they components are all specific to FredTheFrog. We also will have trouble when we want things to know about our characters as they will all be different classes.
 
-We can solve this problem by using abstract classes and this is when the design pattern really starts to be come more general and much more flexible to use.
+### Going Abstract
+
+We can solve this problem by using abstract classes and this is when the design pattern really starts to be come more general and much more flexible to use. Below we can see the UML diagram of how to represent this.
 
 <div style="text-align:center">
   <img src="diagrams/example.png">
 </div>
+We have a GameObject that we then instance whenever we want to have an object or character in our game, Fred would be a GameObject. The game object then stores all the components needed to make it up. It stores the abstract classes so you can implement your components by extending any given component. In the UML diagram we can see that we extend the components for Fred but you can write components so they are reusable so we could have a reusable graphics component by making the sprites modifiable. Below is how the Fred would work if we used these abstract classes.
+
+```cpp
+class GameObject(){
+  public:
+    GameObject(PhysicsComponent& physics, GraphicsComponent& graphics, InputComponent& input){
+      physicsComp   = physics;
+      graphicsComp  = graphics;
+      inputComp     = input;
+    }
+    ~GraphicsComponent();
+    void update(){
+      physicsComp.update(*this);
+      graphicsComp.update(*this);
+      inputComp.update(*this);
+    }
+  private:
+    PhysicsComponent& physicsComp;
+    GraphicsComponent& graphicsComp;
+    InputComponent& inputComp;
+}
+
+class InputComponent {
+  public:
+    // Virtual in CPP means these functions are abstract and need to be extended
+    virtual InputComponent();
+    virtual ~InputComponent();
+    virtual void update(GameObject& obj);
+}
+
+// In CPP this means that FredInput now extends the InputComponent
+class FredInput : public InputComponent {
+  public:
+    FredInput();
+    ~FredInput();
+
+    void update(GameObject& fred) {
+      if(INPUT::getKeyDown() == "w"){
+        fred.velocityY -= fred.acceleration;
+      }else if(INPUT::getKeyDown() == "a"){
+        fred.velocityX -= fred.acceleration;
+      }else if(INPUT::getKeyDown() == "s"){
+        fred.velocityY += fred.acceleration;
+      }else if(INPUT::getKeyDown() == "d"){
+        fred.velocityX += fred.acceleration;
+      }
+    }
+}
+// Abstract Physics Component
+class PhysicsComponent {
+  public:
+    // Must be extended
+    virtual PhysicsComponent();
+    virtual ~PhyscialComponent();
+    virtual void update(GameObject& obj, Map& map);
+}
+
+// Extending physicsComponent
+class FredPhysics : public PhysicsComponent {
+  public:
+    FredPhysics();
+    ~FredPhysics();
+
+    void update(GameObject& fred, Map& map){
+      fred.x += fred.velocityX;
+      fred.y += fred.velocityY;
+      map.sortCollisions(fred);
+    }
+}
+
+// Abstract Graphics
+class GraphicsComponent {
+  public:
+    virtual GraphicsComponent(Sprite& stillSprite, Sprite& leftWalking, Sprite& rightWalking);
+    virtaul ~GraphicsComponent();
+    virtaul void update(GameObject& obj);
+  private:
+    Sprite& still;
+    Sprite& left;
+    Sprite& right;
+}
+
+// Extends Graphics for Fred
+class FredGraphics : public GraphicsComponent {
+  public:
+    FredGraphics(Sprite& stillSprite, Sprite& leftWalking, Sprite& rightWalking){
+      still   = stillSprite;
+      left    = leftWalking;
+      right   = rightWalking;
+    }
+    ~FredGraphics();
+
+    void update(GameObject& obj){
+      if(fred.velocityX==0){ still.draw(fred.x,fred.y); }
+      else if(fred.velocityX>0){ right.draw(fred.x,fred.y); }
+      else if(fred.velocityX<0){ left.draw(fred.x,fred.y); }
+    }
+}
+
+GameObject& MakeFred(){
+  Sprite& still   = new Sprite("frog.png");
+  Sprite& left    = new Sprite("frogLeft.png");
+  Sprite& right   = new Sprite("frogRight.png");
+
+
+  auto fredPhys   = new FredPhysics();
+  auto fredGraph  = new FredGraphics(still, left, right);
+  auto fredInput  = new FredInput();
+
+  return new GameObject(fredPhys, fredGraph, fredInput);
+}
+```
+
+This solution looks large and cumbersome but if you are writing lots of characters doing similar things you can then build your game up in much more of a simple way.
+
+Enjoy the component pattern.
