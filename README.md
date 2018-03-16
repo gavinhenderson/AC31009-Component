@@ -95,11 +95,11 @@ To overcome this problem we are going to split this code up into components. We 
 
 We will start off by writing the Physics Component.
 ```cpp
-class PhysicsComponent {
+class FredPhysicsComponent {
   public:
     // Constructor and Destructor
-    PhysicsComponent();
-    ~PhysicsComponent();
+    FredPhysicsComponent();
+    ~FredPhysicsComponent();
 
     // Update function
     void update(FredTheFrom& fred, Map& map){
@@ -114,15 +114,15 @@ We can see that we write the physics component so that is just has a simple upda
 
 Next we will move onto the Graphics Component
 ```cpp
-class GraphicsComponent {
+class FredGraphicsComponent {
   public:
     // Constructor that stores the game sprites
-    GraphicsComponent(Sprite& frog, Sprite& frogLeft, Sprite& frogRight) {
-        still         = frog;
-        walkingLeft   = frogLeft;
-        walkingRight  = frogRight;
+    FredGraphicsComponent() {
+        still         = new Sprite('frog');
+        walkingLeft   = new Sprite('frogLeft');
+        walkingRight  = new Sprite('frogRight');
       }
-    ~GraphicsComponent();
+    ~FredGraphicsComponent();
 
     //Update function
     void update(FredTheFrog& fred){
@@ -137,6 +137,63 @@ class GraphicsComponent {
     Sprite& walkingRight;
 }
 ```
+Again we can see that the graphics component also just has a simple update function that runs the physics part of fred when called.
+
+The last piece of the puzzle is keyboard input. We again can split this into a module as follows.
+```cpp
+class FredInputComponent {
+  public:
+    FredInputComponent(){
+      acceleration = 1;
+    };
+    ~FredInputComponent();
+
+    void update(FredTheFrog& fred){
+      if(INPUT::getKeyDown() == "w"){
+        fred.velocityY -= acceleration;
+      }else if(INPUT::getKeyDown() == "a"){
+        fred.velocityX -= acceleration;
+      }else if(INPUT::getKeyDown() == "s"){
+        fred.velocityY += acceleration;
+      }else if(INPUT::getKeyDown() == "d"){
+        fred.velocityX += acceleration;
+      }
+    }
+  private:
+    int acceleration;
+}
+```
+Now we can easily bring all these things together into a very small class that makes up fred. This is shown below
+```cpp
+class FredTheFrog {
+public:
+  FredTheFrog(){
+    physicsComponent  = new FredPhysicsComponent();
+    graphicsComponent = new FredGraphicsComponent();
+    inputComponent    = new FredInputComponent();
+  }
+  ~FredTheFrog(){}
+
+  void update(Map& map){
+    // Update components
+    inputComponent.update(this*);
+    physicsComponent.update(this*, map);
+    graphicsComponent.update(this*);
+  }
+
+private:
+  // We say (0,0) is the top left
+  int velocityX, velocityY, x, y;
+
+  // Here we store our components
+  PhysicsComponent& physicsComponent;
+  GraphicsComponent& graphicsComponent;
+  InputComponent& inputComponent;
+}
+```
+We can clearly see now that the code we have now for FredTheFrog is much simpler and if we want to find a certain part of Fred we can now do it very quickly. However, this solution only goes part of the way to solving the problem. If we want to use the code again for another game character we cant as they components are all specific to FredTheFrog. We also will have trouble when we want things to know about our characters as they will all be different classes.
+
+We can solve this problem by using abstract classes and this is when the design pattern really starts to be come more general and much more flexible to use.
 
 <div style="text-align:center">
   <img src="diagrams/example.png">
