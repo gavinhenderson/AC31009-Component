@@ -8,7 +8,7 @@
   * [Rigid Class](#the-rigid-class)
   * [Creating Components](#creating-components)
   * [Going Abstract](#going-abstract)
-
+* [Conclusion](#conclusion)
 ## Video
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" align="middle" style="margin: auto; text-align:center;" allowfullscreen></iframe>
@@ -192,7 +192,7 @@ private:
   InputComponent& inputComponent;
 }
 ```
-We can clearly see now that the code we have now for FredTheFrog is much simpler and if we want to find a certain part of Fred we can now do it very quickly. However, this solution only goes part of the way to solving the problem. If we want to use the code again for another game character we cant as they components are all specific to FredTheFrog. We also will have trouble when we want things to know about our characters as they will all be different classes.
+We can clearly see now that the code we have now for FredTheFrog is much simpler and if we want to find a certain part of Fred we can now do it very quickly. However, this solution only goes part of the way to solving the problem. If we want to use the code again for another game character we can't as they components are all specific to FredTheFrog. We also will have trouble when we want things to know about our characters as they will all be different classes.
 
 ### Going Abstract
 
@@ -316,4 +316,9 @@ GameObject& MakeFred(){
 
 This solution looks large and cumbersome but if you are writing lots of characters doing similar things you can then build your game up in much more of a simple way.
 
-Enjoy the component pattern.
+### Conclusion
+
+The component pattern can add complexity instead of just making a class.  Be careful because using components also means all the parts have to be instantiated and integrated together. That means a lot of memory management complexity that you have introduced.  But in the long term with a large code base it will really help with decoupling for easier maintainability and extension later on. This can be really helpful in games programming as generally you are going to have scrap code regularly as you realise you don’t need that functionality in the game. Instead of having to dive into big monolithic classes to figure out which parts you don’t need it’s simpler just retiring some components inside an entity class. Having components allows you to have pile of functionality in predefined blocks you can simply add to new game objects and allows for more simply extension after you realise a behaviour needs extending.
+
+We hope that you can use the Component Pattern inside your own games to great effect!
+Thank you for reading.
