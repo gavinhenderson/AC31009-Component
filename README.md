@@ -24,7 +24,7 @@ The aims of the 'Component' design pattern is to allows for the decoupling of do
 
 ## Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=_FCfNAjaJAE" frameborder="0" allow="autoplay; encrypted-media" align="middle" style="margin: auto; text-align:center;" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zlAqizx7Lf0" frameborder="0" allow="autoplay; encrypted-media" align="middle" style="margin: auto; text-align:center;"></iframe>
 
 ## The Problem
 
