@@ -383,7 +383,7 @@ Messaging is good for communication that doesn’t need to be fired back and for
 
 The component pattern can add complexity instead of just making a class.  Be careful because using components also means all the parts have to be instantiated and integrated together. That means a lot of memory management complexity that you have introduced,  but in the long term with a large code base it will really help with decoupling for easier maintainability and extension later on. This can be really helpful in games programming as generally you are going to have scrap code regularly as you realise you don’t need that functionality in the game. Instead of having to dive into big monolithic classes to figure out which parts you don’t need it’s simpler just retiring some components inside an entity class. Having components allows you to have pile of functionality in predefined blocks you can simply add to new game objects and allows for more simply extension after you realise a behaviour needs extending.
 
- <a href="https://goo.gl/forms/GkLGzkfepXXZRDJI3">Before finishing up do the quiz to see how much you have learned!</a>
+ <a href="https://goo.gl/forms/gOPaifmBJJqGWyGV2">Before finishing up do the quiz to see how much you have learned!</a>
 
 We hope that you can use the Component Pattern inside your own games to great effect!
 Thank you for reading.
