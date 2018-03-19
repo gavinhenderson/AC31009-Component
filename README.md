@@ -8,6 +8,12 @@
   * [Rigid Class](#the-rigid-class)
   * [Creating Components](#creating-components)
   * [Going Abstract](#going-abstract)
+* [Design Problems](#design-problems)
+* [How does the object get its components](#how-does-the-object-get-its-components?)
+  * [If the object creates its own components](if-the-object-creates-its-own-components)
+  * [If outside code provides the components](if-outside-code-[provides-the-components)
+* [How do the components interact/communicate with each other](how-do-the-components-intreact/communicate-with-each-other?)
+  * [Modify the container object's state](modify-the-container-object's-state)
 * [Conclusion](#conclusion)
 
 ## Aim of the Design Pattern
@@ -317,7 +323,39 @@ GameObject& MakeFred(){
 
 This solution looks large and cumbersome but if you are writing lots of characters doing similar things you can then build your game up in much more of a simple way.
 
-### Conclusion
+## Design Problems
+
+You need to think about components you want and need. This will depend on your game. The more tangled and bigger the game the more thought out the components they need to be.
+
+You also need to think about :
+
+## How does the object get its components?
+
+So we have a pile of separate components - who assembles them into a class?
+
+### If the object creates its own components
+
+The object always has the components it needs to run. Never have to rely on other people in wiring up the right components up to the container object.
+
+The problem with this is the its then harder to reconfigure the object. When we hard code the set of components we want we aren’t using the flexibility that can come with this pattern as we can make new objects by simply giving a container new components, but we can’t do that if we hard code it.
+
+### If outside code provides the components
+
+What we mean by this is if when a class is creating a container object it passes the components you want it to use. This is helpful as the object becomes more flexible as the behaviour can be completely different depending on the components we feed it.
+
+Also the object can be decoupled from the component types as if we are passing in the component types we can probably pass in derived component types. So we can just pass the component interfaces so we get nice encapsulation.
+
+## How do the components interact/communicate with each other?
+
+So these completely decoupled components sound perfect in our head but really don’t work sadly in the real world. They are part of the same object and so need to communicate between each other to link up the processes.
+
+So there is multiple ways you can do this and they aren’t exclusive - you can put more than one in your designs.
+
+### Modify the container object’s state
+
+
+
+## Conclusion
 
 The component pattern can add complexity instead of just making a class.  Be careful because using components also means all the parts have to be instantiated and integrated together. That means a lot of memory management complexity that you have introduced.  But in the long term with a large code base it will really help with decoupling for easier maintainability and extension later on. This can be really helpful in games programming as generally you are going to have scrap code regularly as you realise you don’t need that functionality in the game. Instead of having to dive into big monolithic classes to figure out which parts you don’t need it’s simpler just retiring some components inside an entity class. Having components allows you to have pile of functionality in predefined blocks you can simply add to new game objects and allows for more simply extension after you realise a behaviour needs extending.
 
