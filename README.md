@@ -23,7 +23,7 @@
 The aims of the 'Component' design pattern is to allows for the decoupling of domains from their entities allowing them to span multiple domains. Decoupling allows for code reusability and allows developers to work on different sections of the code at the same time.
 
 ## Video
-
+Our player for the video doesn't seem to work so here is the <a href="https://www.youtube.com/watch?v=_FCfNAjaJAE" >link</a>
 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=_FCfNAjaJAE" frameborder="0" allow="autoplay; encrypted-media" align="middle" style="margin: auto; text-align:center;"></iframe>
 
 ## The Problem
