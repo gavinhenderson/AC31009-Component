@@ -14,6 +14,8 @@
   * [If outside code provides the components](if-outside-code-[provides-the-components)
 * [How do the components interact/communicate with each other?](how-do-the-components-interact/communicate-with-each-other?)
   * [Modify the container object's state](modify-the-container-object's-state)
+  * [By referring directly to each other](by-referring-directly-to-each-other)
+  * [By sending messages](by-sending-messages)
 * [Conclusion](#conclusion)
 
 ## Aim of the Design Pattern
@@ -353,6 +355,28 @@ There is multiple ways you can do this and they aren’t exclusive - you can put
 
 ### Modify the container object’s state
 
+It keeps the components totally decoupled but for a price as it requires any information shared to be shared to all components as the information gets pushed up to the container object. This makes the container object far more complex as most of the information will be specific to a few components.
+
+It also means that any computation on the state is dependent on which order the components are processed. This sort of shared state with components reading the same data is very hard to get right and can introduce a lot of subtle bugs.
+
+### By referring directly to each other
+
+So we sort of take a step back to our monolithic class and introduce a direct reference to the components that need to talk to each other. For instance the animation component could have a reference to FredTheFrog’s physics component.
+
+This is really simple and fast to implement but now these two components are tightly coupled together. It’s not great but it isn’t as nasty as the monolithic class as we are only creating links between the components that need the links.
+
+### By sending messages
+
+The most complex sadly. We build a small messaging system into our container object to let components send messages. So the component sends a message to the container and the container sends it to all the components! This means that
+The components are decoupled again as the coupling is the messaging system that is in place.
+
+The container object is simple again. All the container does is pass messages around and does not know about the data the components have at all unlike in shared state communication.
+
+All ways have their uses so you will generally end up using them all in your game if you use the component pattern. The shared state is really good for simple stuff that every component might need.
+
+Letting the components refer to each other directly is handy when the component are closely related. Sometimes it’s just easier letting these closely related components know about each other.
+
+Messaging is good for communication that doesn’t need to be fired back and forth. So like switches that change the games state for instance.
 
 
 ## Conclusion
@@ -363,5 +387,7 @@ The component pattern can add complexity instead of just making a class.  Be car
 
 We hope that you can use the Component Pattern inside your own games to great effect!
 Thank you for reading.
+
+Examples of this in the real world can come from the game engine Unity which uses the component pattern for its game objects.
 
 <hr>
