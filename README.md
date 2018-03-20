@@ -24,7 +24,8 @@ The aims of the 'Component' design pattern is to allows for the decoupling of do
 
 ## Video
 Our player for the video doesn't seem to work so here is the <a href="https://www.youtube.com/watch?v=_FCfNAjaJAE" >link</a>
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=_FCfNAjaJAE" frameborder="0" allow="autoplay; encrypted-media" align="middle" style="margin: auto; text-align:center;"></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_FCfNAjaJAE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## The Problem
 
